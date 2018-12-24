@@ -30,7 +30,6 @@ C:\Users\Will\OneDrive\Mine\Code\C#\WrayTraceBlazor\WrayTraceBlazor\obj\Debug\ne
 C:\Users\Will\OneDrive\Mine\Code\C#\WrayTraceBlazor\WrayTraceBlazor\obj\Debug\netstandard2.0\WrayTraceBlazor.csproj.CoreCompileInputs.cache
 C:\Users\Will\OneDrive\Mine\Code\C#\WrayTraceBlazor\WrayTraceBlazor\obj\Debug\netstandard2.0\Blazor.inputs.txt
 C:\Users\Will\OneDrive\Mine\Code\C#\WrayTraceBlazor\WrayTraceBlazor\obj\Debug\netstandard2.0\App.g.i.cs
-C:\Users\Will\OneDrive\Mine\Code\C#\WrayTraceBlazor\WrayTraceBlazor\obj\Debug\netstandard2.0\Pages\Counter.g.i.cs
 C:\Users\Will\OneDrive\Mine\Code\C#\WrayTraceBlazor\WrayTraceBlazor\obj\Debug\netstandard2.0\Pages\FetchData.g.i.cs
 C:\Users\Will\OneDrive\Mine\Code\C#\WrayTraceBlazor\WrayTraceBlazor\obj\Debug\netstandard2.0\Pages\Index.g.i.cs
 C:\Users\Will\OneDrive\Mine\Code\C#\WrayTraceBlazor\WrayTraceBlazor\obj\Debug\netstandard2.0\Pages\_ViewImports.g.i.cs
@@ -42,7 +41,6 @@ C:\Users\Will\OneDrive\Mine\Code\C#\WrayTraceBlazor\WrayTraceBlazor\obj\Debug\ne
 C:\Users\Will\OneDrive\Mine\Code\C#\WrayTraceBlazor\WrayTraceBlazor\obj\Debug\netstandard2.0\Blazor.components.input.cache
 C:\Users\Will\OneDrive\Mine\Code\C#\WrayTraceBlazor\WrayTraceBlazor\obj\Debug\netstandard2.0\Blazor.definition.components.json
 C:\Users\Will\OneDrive\Mine\Code\C#\WrayTraceBlazor\WrayTraceBlazor\obj\Debug\netstandard2.0\App.g.cs
-C:\Users\Will\OneDrive\Mine\Code\C#\WrayTraceBlazor\WrayTraceBlazor\obj\Debug\netstandard2.0\Pages\Counter.g.cs
 C:\Users\Will\OneDrive\Mine\Code\C#\WrayTraceBlazor\WrayTraceBlazor\obj\Debug\netstandard2.0\Pages\FetchData.g.cs
 C:\Users\Will\OneDrive\Mine\Code\C#\WrayTraceBlazor\WrayTraceBlazor\obj\Debug\netstandard2.0\Pages\Index.g.cs
 C:\Users\Will\OneDrive\Mine\Code\C#\WrayTraceBlazor\WrayTraceBlazor\obj\Debug\netstandard2.0\Pages\_ViewImports.g.cs
@@ -91,3 +89,5 @@ C:\Users\Will\OneDrive\Mine\Code\C#\WrayTraceBlazor\WrayTraceBlazor\bin\Debug\ne
 C:\Users\Will\OneDrive\Mine\Code\C#\WrayTraceBlazor\WrayTraceBlazor\obj\Debug\netstandard2.0\blazor\linker\System.Drawing.dll
 C:\Users\Will\OneDrive\Mine\Code\C#\WrayTraceBlazor\WrayTraceBlazor\obj\Debug\netstandard2.0\blazor\linker\WrayTrace.dll
 C:\Users\Will\OneDrive\Mine\Code\C#\WrayTraceBlazor\WrayTraceBlazor\obj\Debug\netstandard2.0\blazor\linker\WrayTrace.pdb
+C:\Users\Will\OneDrive\Mine\Code\C#\WrayTraceBlazor\WrayTraceBlazor\obj\Debug\netstandard2.0\Pages\Render.g.i.cs
+C:\Users\Will\OneDrive\Mine\Code\C#\WrayTraceBlazor\WrayTraceBlazor\obj\Debug\netstandard2.0\Pages\Render.g.cs

@@ -1,0 +1,137 @@
+﻿@page "/render"
+@using System.Diagnostics;
+
+<h1>Counter</h1>
+
+<p>Total Time: @totalTime</p>
+<p>Scene Generation Time: @sceneGenerationTime</p>
+<p>Scene Rendering Time: @sceneRenderingTime</p>
+<p>Image Generation Time: @imageGenerationTime</p>
+
+<button class="btn btn-primary" onclick="@IncrementCount">Click me</button>
+
+<button class="btn btn-primary" onclick="@RenderTable">Render</button>
+
+<input type="checkbox" bind="@fast" />
+
+<p>@status</p>
+
+<div style="display:flex; flex-direction:row;">
+    @for (int i = 0; i < table.GetLength(0); i++)
+    {
+        <div style="display:flex; flex-direction:column;">
+            @for (int j = 0; j < table.GetLength(1); j++)
+            {
+                <div style="background-color: @table[i, j]; width:calc(@scale * 1px); height:calc(@scale * 1px)"></div>
+            }
+        </div>
+    }
+</div>
+
+@functions {
+int currentCount = 10;
+
+String status = "";
+
+String totalTime;
+String sceneGenerationTime;
+String sceneRenderingTime;
+String imageGenerationTime;
+
+int scaleH = 5;
+int widthH = 200;
+int heightH = 200;
+
+int scaleL = 50;
+int widthL = 20;
+int heightL = 20;
+
+int scale = 1;
+int width = 50;
+int height = 50;
+
+bool fast;
+String[,] table = new String[100, 100];
+String[,] table0 = { { "rgb(10,10,10)" }, { "rgb(100,100,100)" } };
+
+void IncrementCount()
+{
+    currentCount++;
+}
+
+void RenderTable()
+{
+    Stopwatch totalStopwatch = new Stopwatch();
+    Stopwatch sceneGeneration = new Stopwatch();
+    Stopwatch sceneRendering = new Stopwatch();
+    Stopwatch imageGeneration = new Stopwatch();
+
+    totalStopwatch.Start();
+    sceneGeneration.Start();
+
+    if (fast)
+    {
+        width = widthL;
+        height = widthL;
+        scale = scaleL;
+    }
+    else
+    {
+        width = widthH;
+        height = widthH;
+        scale = scaleH;
+    }
+
+    Camera camera = new Camera(V(2, -4, 4) * 1.5f, V(-.5f, 1, -.75f).Unit(), 1.2f, width, height);
+    Parallelogram floor = new Parallelogram(V(-10, 10, 0), V(-10, -10, 0), V(10, -10, 0));
+    Paralleloid cube = new Paralleloid(V(1, 1, 0), V(1, -1, 0), V(-1, 1, 0), V(1, 1, 2));
+    Paralleloid cube2 = new Paralleloid(V(0.866025404f, 0.5f, 2), V(0.5f, -0.866025404f, 2), V(-0.5f, 0.866025404f, 2), V(0.866025404f, 0.5f, 3.41f));
+
+    Light light1 = new Light(V(20, -14, 30), 4000);
+    Light light2 = new Light(V(15, -14, 30), 5000);
+
+
+    List<Element> elements = new List<Element>();
+    elements.Add(floor);
+    elements.Add(cube);
+    elements.Add(cube2);
+
+    List<Light> lights = new List<Light>();
+    lights.Add(light1);
+
+    Scene scene = new Scene(camera);
+    scene.elements = elements;
+    scene.lights = lights;
+
+    sceneGenerationTime = sceneGeneration.ElapsedTicks / 1000.0 + "s";
+    sceneRendering.Start();
+
+    table = new String[width, height];
+
+    float[,] imageValues = scene.GetIntensityValues(ref status);
+
+    sceneRenderingTime = sceneRendering.ElapsedMilliseconds / 1000.0 + "s";
+    imageGeneration.Start();
+
+    float maxIntensity = (from float v in imageValues select v).Max();
+
+    for (int x = 0; x < width; x++)
+    {
+        for (int y = 0; y < height; y++)
+        {
+
+            int intensity = Convert.ToInt32(imageValues[x, y] / maxIntensity * 255);
+            table[x, y] = "rgb(" + intensity + "," + intensity + "," + intensity + ")";
+
+        }
+    }
+
+    imageGenerationTime = imageGeneration.ElapsedMilliseconds / 1000.0 + "s";
+    totalTime = totalStopwatch.ElapsedMilliseconds / 1000.0 + "s";
+}
+
+static Vector3 V(float x0, float y0, float z0)
+{
+    return new Vector3(x0, y0, z0);
+}
+}
