@@ -76,12 +76,10 @@
         Parallelogram floor = new Parallelogram(V(-10, 10, 0), V(-10, -10, 0), V(10, -10, 0));
         //Paralleloid cube = new Paralleloid(V(1, 1, 0), V(1, -1, 0), V(-1, 1, 0), V(1, 1, 2));
         //Paralleloid cube2 = new Paralleloid(V(0.866025404f, 0.5f, 2), V(0.5f, -0.866025404f, 2), V(-0.5f, 0.866025404f, 2), V(0.866025404f, 0.5f, 3.41f));
-        Sphere sphere = new Sphere(V(0, 0, 1), 0.5f);
-
+        Sphere sphere = new Sphere(V(0, 0, 1), 2f);
 
         Light light1 = new Light(V(20, -14, 30), 4000);
         Light light2 = new Light(V(15, -14, 30), 5000);
-
 
         List<Element> elements = new List<Element>();
         elements.Add(floor);
@@ -106,10 +104,8 @@
         {
             for (int y = 0; y < height; y++)
             {
-
                 int intensity = Convert.ToInt32(imageValues[x, y] / maxIntensity * 255);
                 table[x, y] = "rgb(" + intensity + "," + intensity + "," + intensity + ")";
-
             }
         }
 
