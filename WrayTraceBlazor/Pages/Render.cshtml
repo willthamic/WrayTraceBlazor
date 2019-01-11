@@ -9,21 +9,13 @@
 
 <button class="btn btn-primary" onclick="@RenderTable">Render</button>
 
+<button class="btn btn-primary" onclick="@BigTest">BigTest</button>
+
 <input type="checkbox" bind="@fast" />
 
-<p>@status</p>
+<div id="canvasContainer"></div>
 
-<div style="display:flex; flex-direction:row;">
-    @for (int i = 0; i < table.GetLength(0); i++)
-    {
-        <div style="display:flex; flex-direction:column;">
-            @for (int j = 0; j < table.GetLength(1); j++)
-            {
-                <div style="background-color: @table[i, j]; width:calc(@scale * 1px); height:calc(@scale * 1px)"></div>
-            }
-        </div>
-    }
-</div>
+<p>@status</p>
 
 @functions {
     int currentCount = 10;
@@ -33,8 +25,8 @@
     String totalTime;
 
     int scaleH = 5;
-    int widthH = 200;
-    int heightH = 200;
+    int widthH = 256;
+    int heightH = 4256;
 
     int scaleL = 50;
     int widthL = 20;
@@ -45,12 +37,17 @@
     int height = 50;
 
     bool fast;
-    String[,] table = new String[100, 100];
-    String[,] table0 = { { "rgb(10,10,10)" }, { "rgb(100,100,100)" } };
+    //String[,] table = new String[100, 100];
+    //String[,] table0 = { { "rgb(10,10,10)" }, { "rgb(100,100,100)" } };
 
     void IncrementCount()
     {
         currentCount++;
+    }
+
+    void BigTest()
+    {
+        JSRuntime.Current.InvokeAsync<string>("canvasFunctions.createCanvas",100,100);
     }
 
     void RenderTable()
@@ -72,11 +69,12 @@
             scale = scaleH;
         }
 
-        Camera camera = new Camera(V(2, -4, 4) * 1.5f, V(-.5f, 1, -.75f).Unit(), 1.2f, width, height);
+        Camera camera = new Camera(V(2, -4, 4) * 1.5f, V(-.5f, 1, -.75f).Unit(), 1.0f, width, height);
         Parallelogram floor = new Parallelogram(V(-10, 10, 0), V(-10, -10, 0), V(10, -10, 0));
-        //Parallelepiped cube = new Parallelepiped(V(1, 1, 0), V(1, -1, 0), V(-1, 1, 0), V(1, 1, 2));
+        Parallelepiped cube = new Parallelepiped(V(1, 1, 0), V(1, -1, 0), V(-1, 1, 0), V(1, 1, 2));
         //Parallelepiped cube2 = new Parallelepiped(V(0.866025404f, 0.5f, 2), V(0.5f, -0.866025404f, 2), V(-0.5f, 0.866025404f, 2), V(0.866025404f, 0.5f, 3.41f));
-        Sphere sphere = new Sphere(V(0, 0, 1), 2f);
+        Sphere sphere = new Sphere(V(2, 0, 0.5f), 1f);
+        //Cube cube = new Cube(V(2, 0, 0.5f), 1);
 
         Light light1 = new Light(V(20, -14, 30), 4000);
         Light light2 = new Light(V(15, -14, 30), 5000);
@@ -86,6 +84,7 @@
         //elements.Add(cube);
         //elements.Add(cube2);
         elements.Add(sphere);
+        elements.Add(cube);
 
         List<Light> lights = new List<Light>();
         lights.Add(light1);
@@ -94,9 +93,10 @@
         scene.elements = elements;
         scene.lights = lights;
 
-        table = new String[width, height];
+        //table = new String[width, height];
 
         float[,] imageValues = scene.GetIntensityValues(ref status);
+        int[,] imageValuesInt = new int[width, height];
 
         float maxIntensity = (from float v in imageValues select v).Max();
 
@@ -105,9 +105,12 @@
             for (int y = 0; y < height; y++)
             {
                 int intensity = Convert.ToInt32(imageValues[x, y] / maxIntensity * 255);
-                table[x, y] = "rgb(" + intensity + "," + intensity + "," + intensity + ")";
+                imageValuesInt[y, x] = intensity;
+                //table[x, y] = "rgb(" + intensity + "," + intensity + "," + intensity + ")";
             }
         }
+
+        JSRuntime.Current.InvokeAsync<string>("canvasFunctions.displayData", imageValuesInt, width, height);
 
         totalTime = totalStopwatch.ElapsedMilliseconds / 1000.0 + "s";
     }
